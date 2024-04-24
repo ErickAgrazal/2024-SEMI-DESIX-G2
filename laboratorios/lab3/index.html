@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laboratorio #3</title>
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <section>
+       <!-- Problema #1 -->
+      <form id="form1">
+        <h1>Problema #1</h1>
+        <label for="num">Número</label>
+        <input id="num" type="number" name="num">
+      </form>
+      <span id="resp1"></span>
+    </section>
+    <section>
+      <form id="form2">
+        <h1>Problema #2</h1> 
+        <label for="num">Número</label>
+        <input id="num" type="text" name="txt">
+      </form>
+      <span id="resp2"></span>
+    </section>
+    <script>
+      (() => {
+        const App = {
+          htmlElements: {
+            form: document.getElementById('form1'),
+            resp: document.getElementById('resp1'),
+          },
+          init() {
+            App.bindEvents();
+          },
+          bindEvents() {
+            App.htmlElements.form.addEventListener('submit', App.handlers.onFormSubmit);
+          },
+          handlers: {
+            onFormSubmit(e) {
+              e.preventDefault();
+              const num = e.target.num.value;
+              const isDecimalPalindrome = App.methods.isDecimalPalindrome(num);
+              const isBinaryPalindrome = App.methods.isBinaryPalindrome(num);
+              const result = isDecimalPalindrome && isBinaryPalindrome ?
+                  `El número ${num} es palíndromo es de doble base` :
+                  `El número ${num} no es palíndromo es de doble base`;
+              App.render(result);
+            },
+          },
+          methods: {
+            isDecimalPalindrome(num) {
+              const str = num.toString();
+              const reversedStr = str.split('').reverse().join('');
+              return str === reversedStr;
+            },
+            isBinaryPalindrome(num) {
+              const binary = Number(num).toString(2);
+              const reversedBinary = binary.split('').reverse().join('');
+              return binary === reversedBinary;
+            },
+          },
+          render(result) {
+            App.htmlElements.resp.textContent = result;
+          },
+        };
+        App.init();
+      })();
+    </script>
+    <script>
+      (() => {
+        const App = {
+          htmlElements: {
+            form: document.getElementById('form2'),
+            resp: document.getElementById('resp2'),
+          },
+          init() {
+            App.bindEvents();
+          },
+          bindEvents() {
+            App.htmlElements.form.addEventListener('submit', App.handlers.onFormSubmit);
+          },
+          handlers: {
+            onFormSubmit(e) {
+              e.preventDefault();
+              const txt = e.target.txt.value;
+              const counter = App.methods.characterCounter(txt);
+              const response = JSON.stringify(counter);
+              App.render(response);
+            },
+          },
+          methods: {
+            characterCounter(txt) {
+              const counter = {};
+              for(let i = 0; i < txt.length; i++) {
+                if(counter[txt[i]]) {
+                  counter[txt[i]]++;
+                } else {
+                  counter[txt[i]] = 1;
+                }
+                // counter[txt[i]] = (counter[txt[i]] ?? 0) + 1;
+              }
+              return counter;
+            },
+          },
+          render(result) {
+            App.htmlElements.resp.textContent = result;
+          },
+        }
+        App.init();
+      })();
+    </script>
+  </body>
+</html>

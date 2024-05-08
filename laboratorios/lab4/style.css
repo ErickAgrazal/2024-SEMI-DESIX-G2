@@ -1,0 +1,28 @@
+#result {
+  display: flex;
+  gap: 1rem;
+}
+
+.card {
+  padding: 0.8rem 1.3rem;
+  border: 1px solid black;
+  box-shadow: 1px 1px 5px black;
+  position: relative;
+}
+
+.card:hover .remove {
+  visibility: visible;
+}
+
+.remove {
+  position: absolute;
+  background-color: red;
+  padding: 0.2rem 0.4rem;
+  top: -5px;
+  right: -5px;
+  font-size: 7pt;
+  border-radius: 50%;
+  color: white;
+  visibility: hidden;
+  cursor: pointer;
+}
